@@ -3,14 +3,14 @@ from .models import Stock
 from .forms import StockCreateForm
 
 # Create your views here.
+
 def home(request):
     return render(request, 'home.html')
 
 def list_items(request):
-    title = 'List of items',
     queryset = Stock.objects.all()
     context = {
-        "title" : title,
+        "title" : 'List of items',
         "queryset" : queryset
     }
     return render(request, "list_items.html", context)

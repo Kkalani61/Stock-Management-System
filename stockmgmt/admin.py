@@ -8,7 +8,7 @@ class StockCreateAdmin(admin.ModelAdmin):
     form  = StockCreateForm
     list_filter = ['category', 'item_name']
     search_fields = ['category', 'item_name']
-
+    
 
 
 # Register your models here.
