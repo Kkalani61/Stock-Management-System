@@ -23,7 +23,7 @@ body {
     font-family: 'Times New Roman', Times, serif;
 }
 
-.success {
+.messages {
     text-align: center;
-    background-color: darkslategray;
+    background-color:floralwhite;
 }
