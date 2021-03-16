@@ -22,3 +22,8 @@ body {
     font-weight: bold;
     font-family: 'Times New Roman', Times, serif;
 }
+
+.success {
+    text-align: center;
+    background-color: darkslategray;
+}

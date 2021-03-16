@@ -6,7 +6,8 @@
 <html>
     <link href="{% static 'css/stylesheet.css' %}" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
-
+      <!-- Font-Awesome CDN -->
+  <script src="https://kit.fontawesome.com/529cf4d149.js" crossorigin="anonymous"></script>
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -16,6 +17,15 @@
         <link rel="stylesheet" href="">
     </head>
     <body>
+        {% if messages %}
+        <ul class="messages">
+        {% for message in messages %}
+          <li {% if message.tags %} class="{{message.tags}}"
+              {% endif %}> {{message}} </li>
+        {% endfor %}
+        </ul>
+        {% endif %}
+        
         <div role="main" class="container bg-light">
         <div class="header"> 
             {{title}}
@@ -43,7 +53,7 @@
             <td>{{instance.category}}</td>
             <td><a href="{% url 'update_items' instance.id %}"> {{instance.item_name}} </a></td>
             <td>{{instance.quantity}}</td>
-            <td><a href="{% url 'delete_items' instance.id %}"> Delete</a></td>
+            <td><a href="{% url 'delete_items' instance.id %}"> <i class="fas fa-trash-alt"> </i> </a> </td>
           </tr>
       {% endfor %}
     </table>
