@@ -1,23 +1,22 @@
 {% load static %}
-{% load crispy_forms_tags%}
 {% include 'base.html' %}
+
 <!DOCTYPE html>
 
 <html>
     <link href="{% static 'css/stylesheet.css' %}" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
-      <!-- Font-Awesome CDN -->
-  <script src="https://kit.fontawesome.com/529cf4d149.js" crossorigin="anonymous"></script>
+
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title{{title}}></title>
+        <title> {{title}} </title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="">
     </head>
     <body>
- 
+
         <div role="main" class="container bg-light">
         {% if messages %}
         <div class="messages">
@@ -31,39 +30,30 @@
         <div class="header"> 
             {{title}}
         </div>
-        <form method="POST" action="">
-        {% csrf_token %}
-        {{form|crispy}}
-        <input type="submit" value="Search"/>
-        </form>
+
+        <a href="{% url 'issue_items' queryset.id %}"><div class='btn btn-danger'>ISSUE THIS ITEM</div></a>
+        <a href="{% url 'receive_items' queryset.id %}"><div class='btn btn-primary'>RECEIVE THIS ITEM</div></a>
 
         <div class="display_table">
         <table class='table'>
         <thead>
           <tr>
-            <th>COUNT</th>
-            <th>CATEGORY</th>
             <th>ITEM NAME</th>
             <th>QUANTITY IN STORE</th>
-            <th>TIMESTAMP</th>
             <th>LAST UPDATED</th>
-            <th>DELETE</th>
+            <th> REORDER LEVEL </th>
           </tr>
         </thead>
-      {% for instance in queryset %}
           <tr>
-            <td>{{forloop.counter}}</td>
-            <td>{{instance.category}}</td>
-            <td><a href="{% url 'update_items' instance.id %}"> {{instance.item_name}} </a></td>
-            <td><a href="{% url 'stock_detail' instance.id %}"> {{instance.quantity}} </a></td>
-            <td> {{instance.timestamp}} </td>
-            <td> {{instance.last_updated}} </td>
-            <td><a href="{% url 'delete_items' instance.id %}"> <i class="fas fa-trash-alt"> </i> </a> </td>
+            <td>{{queryset.item_name}} </a></td>
+            <td>{{queryset.quantity}} </a></td>
+            <td> {{queryset.last_updated}} </td>
+            <td> {{queryset.reorder_level}} </td>
           </tr>
-      {% endfor %}
     </table>
     </div>
         </div>
+        
         <script src="" async defer></script>
     </body>
 </html>

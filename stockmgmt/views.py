@@ -2,7 +2,7 @@ from django.shortcuts import render, HttpResponse, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
 from .models import Stock
-from .forms import StockCreateForm, StockSearchForm, StockUpdateForm
+from .forms import *
 from django.contrib import messages
 
 import csv
@@ -96,3 +96,49 @@ def delete_items(request, id_no):
     return render(request, 'delete_items.html')
 
 
+def stock_detail(request, id_no):
+    queryset = Stock.objects.get(id=id_no)
+    context = {
+        'title' : queryset.category,
+        'queryset' : queryset
+    }
+    return render(request, 'stock_detail.html', context)
+
+
+def issue_items(request, id_no):
+    queryset = Stock.objects.get(id=id_no)
+    form = IssueForm(request.POST or None, instance=queryset)
+    if form.is_valid():
+        instance = form.save(commit=False)
+        instance.quantity -= instance.issue_quantity
+        messages.success(request, "Issued Successfully, " +  str(instance.quantity) +  " " +  str(instance.item_name) +  's left in stock.')
+        instance.save()
+        return redirect('/stock_detail/'+str(instance.id))
+
+    context = {
+        'queryset' : queryset,
+        'title' : 'Issue ' + str(queryset.item_name),
+        'form' : form,
+        'username' : 'Issue by ' + str(request.user)
+    }
+
+    return render(request, 'add_items.html', context)
+
+
+def receive_items(request, id_no):
+    queryset = Stock.objects.get(id=id_no)
+    form = ReceiveForm(request.POST or None, instance=queryset)
+    if form.is_valid():
+        instance= form.save(commit=False)
+        instance.quantity += instance.receive_quantity
+        messages.success(request, "Received Successfully " + str(instance.quantity) + " " + str(instance.item_name) + "s left in stock.")
+        instance.save()
+        return redirect("/stock_detail/" + str(instance.id))
+
+    context = {
+        'title' : "Received " + str(queryset.item_name),
+        'queryset' : queryset,
+        'form' : form,
+        'username' : 'Received by ' + str(request.user)
+    } 
+    return render(request, 'add_items.html', context)
