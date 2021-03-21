@@ -29,3 +29,10 @@ class ReceiveForm(forms.ModelForm):
         model = Stock
         fields = ['receive_quantity',]
 
+
+class ReorderForm(forms.ModelForm):
+    class Meta:
+        model = Stock
+        fields = ['reorder_level', ]
+        
+

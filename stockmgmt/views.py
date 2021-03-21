@@ -14,6 +14,7 @@ def home(request):
         return redirect("/loginUser")
     return render(request, 'home.html')
 
+
 def loginUser(request):
     if request.method == "POST":
         uname = request.POST.get('username')
@@ -26,6 +27,7 @@ def loginUser(request):
             return render(request, 'loginUser.html')
 
     return render(request, 'loginUser.html')
+
 
 def logoutUser(request):
     logout(request)
@@ -142,3 +144,20 @@ def receive_items(request, id_no):
         'username' : 'Received by ' + str(request.user)
     } 
     return render(request, 'add_items.html', context)
+
+
+def reorder_level(request, id_no):
+    queryset = Stock.objects.get(id=id_no)
+    form = ReorderForm(request.POST or None, instance=queryset)
+    if form.is_valid():
+        instance = form.save(commit=False)
+        messages.success(request, "Reorder level for " + str(instance.item_name) + " is updated to " + str(instance.reorder_level))
+        instance.save()
+        return redirect("/list_items")
+    context = {
+        "instance" : queryset,
+        "form" : form
+    }
+
+    return render(request, "add_items.html", context)
+
