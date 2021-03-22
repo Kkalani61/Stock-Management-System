@@ -1,6 +1,7 @@
 from django.shortcuts import render, HttpResponse, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth.decorators import login_required
 from .models import Stock
 from .forms import *
 from django.contrib import messages
@@ -10,30 +11,30 @@ import csv
 # Create your views here.
 
 def home(request):
-    if request.user.is_anonymous:
-        return redirect("/loginUser")
+    # if request.user.is_anonymous:
+    #     return redirect("/loginUser")
     return render(request, 'home.html')
 
 
-def loginUser(request):
-    if request.method == "POST":
-        uname = request.POST.get('username')
-        pword = request.POST.get('password')
-        user = authenticate(username=uname, password=pword)
-        if user is not None:
-            login(request, user)
-            return redirect("/")
-        else:
-            return render(request, 'loginUser.html')
+# def loginUser(request):
+#     if request.method == "POST":
+#         uname = request.POST.get('username')
+#         pword = request.POST.get('password')
+#         user = authenticate(username=uname, password=pword)
+#         if user is not None:
+#             login(request, user)
+#             return redirect("/")
+#         else:
+#             return render(request, 'loginUser.html')
 
-    return render(request, 'loginUser.html')
-
-
-def logoutUser(request):
-    logout(request)
-    return redirect("/loginUser")
+#     return render(request, 'loginUser.html')
 
 
+# def logoutUser(request):
+#     logout(request)
+#     return redirect("/loginUser")
+
+@login_required
 def list_items(request):
     form = StockSearchForm(request.POST or None)
     queryset = Stock.objects.all()
@@ -61,7 +62,7 @@ def list_items(request):
         }
     return render(request, "list_items.html", context)
 
-
+@login_required
 def add_items(request):
     form = StockCreateForm(request.POST or None)
     if form.is_valid():

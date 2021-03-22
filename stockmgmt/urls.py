@@ -4,8 +4,9 @@ from . import views
 
 urlpatterns = [
     path("", views.home, name="index"),
-    path('loginUser/', views.loginUser, name="login"),
-    path('logoutUser/', views.logoutUser, name="logout"),
+    # path('loginUser/', views.loginUser, name="login"),
+    # path('logoutUser/', views.logoutUser, name="logout"),
+    path('accounts/', include('registration.backends.default.urls')),
     path("list_items/", views.list_items, name="list_tems"),
     path("add_items/", views.add_items, name="add_items"),
     path('update_items/<str:id_no>/', views.update_items, name="update_items"),
@@ -14,4 +15,4 @@ urlpatterns = [
     path('issue_items/<str:id_no>/', views.issue_items, name="issue_items"),
     path('receive_items/<str:id_no>/', views.receive_items, name="receive_items"),
     path('reorder_level/<str:id_no>/', views.reorder_level, name="reorder_level")
-]
+]  
