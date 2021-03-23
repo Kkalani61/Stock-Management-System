@@ -2,7 +2,7 @@ from django.shortcuts import render, HttpResponse, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
-from .models import Stock
+from .models import Stock, StockHistory
 from .forms import *
 from django.contrib import messages
 
@@ -114,6 +114,8 @@ def issue_items(request, id_no):
     if form.is_valid():
         instance = form.save(commit=False)
         instance.quantity -= instance.issue_quantity
+        instance.receive_quantity = 0
+        instance.issue_by = str(request.user)
         messages.success(request, "Issued Successfully, " +  str(instance.quantity) +  " " +  str(instance.item_name) +  's left in stock.')
         instance.save()
         return redirect('/stock_detail/'+str(instance.id))
@@ -134,6 +136,8 @@ def receive_items(request, id_no):
     if form.is_valid():
         instance= form.save(commit=False)
         instance.quantity += instance.receive_quantity
+        instance.issue_quantity = 0
+        instance.receive_by = str(request.user)
         messages.success(request, "Received Successfully " + str(instance.quantity) + " " + str(instance.item_name) + "s left in stock.")
         instance.save()
         return redirect("/stock_detail/" + str(instance.id))
@@ -162,3 +166,42 @@ def reorder_level(request, id_no):
 
     return render(request, "add_items.html", context)
 
+
+@login_required
+def list_history(request):
+    header = 'LIST OF ITEMS'
+    queryset = StockHistory.objects.all()
+    form = StockSearchForm(request.POST or None)
+    context = {
+    'header' : 'header',
+    "queryset": queryset,
+    'form' : form 
+    } 
+    if request.method == 'POST':
+        category = form['category'].value()
+        queryset = StockHistory.objects.filter(item_name__icontains=form['item_name'].value())
+        context = {
+            "form": form,
+            "header": header,
+            "queryset": queryset,
+        } 
+        if (category != ''):
+            queryset = queryset.filter(category_id=category)
+   
+        if form['export_to_csv'].value() == True:
+            response = HttpResponse(content_type="txt/csv")
+            response['Content-Disposition'] = 'attachment; filename="Stock History"'
+            writer = csv.writer(response)
+            writer.writerow(['Category', 'Item Name', 'Quantity', 'ISSUE QUANTITY', 'RECEIVE QUANTITY', 'RECEIVE QUANTITY', 'RECEIVE BY', 'ISSUE BY', 'LAST UPDATED'])
+            instance = queryset
+            for stock in instance:
+                writer.writerow([stock.category, stock.item_name, stock.quantity, stock.issue_quantity, stock.receive_quantity, stock.receive_by, stock.issue_by, stock.last_updated])
+            return response
+    context = {
+        'queryset' : queryset,
+        'header' : 'header',
+        'form' : form 
+    } 
+
+
+    return render(request, "list_history.html", context)
