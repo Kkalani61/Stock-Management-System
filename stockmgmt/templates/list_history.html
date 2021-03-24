@@ -4,10 +4,18 @@
 <!DOCTYPE html>
 
 <html>
-    <link href="{% static 'css/stylesheet.css' %}" rel="stylesheet">
+  <link href="{% static 'css/stylesheet.css' %}" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
       <!-- Font-Awesome CDN -->
   <script src="https://kit.fontawesome.com/529cf4d149.js" crossorigin="anonymous"></script>
+    <link href="{% static 'js/jquery-ui-1.12.1/jquery-ui.min.css' %}" rel="stylesheet">
+    <link href="{% static 'js/jquery-ui-1.12.1/jquery-ui.structure.min.css' %}" rel="stylesheet">
+    <link href="{% static 'js/jquery-ui-1.12.1/jquery-ui.theme.min.css' %}" rel="stylesheet">
+    
+    
+    <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+    <script src="{% static 'js/jquery-ui-1.12.1/jquery-ui.min.js' %}"></script>
+    <script src="{% static 'js/myjs.js' %}"></script>
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -73,7 +81,8 @@
     </table>
     </div>
     </div>
-        </div>
-        <script src="" async defer></script>
-    </body>
+    </div>
+  <script src="{% static 'js/pager/paging.js' %}"></script>
+  <script src="{% static 'js/myjs.js' %}"> </script>
+  </body>
 </html>

@@ -1,5 +1,6 @@
 from django import forms
 from .models import Stock, StockHistory
+from bootstrap_datepicker_plus import DatePickerInput
 
 class StockCreateForm(forms.ModelForm):
     class Meta:
@@ -37,9 +38,9 @@ class ReorderForm(forms.ModelForm):
         
 
 class StockHistorySearchForm(forms.ModelForm):
-	export_to_CSV = forms.BooleanField(required=False)
-	start_date = forms.DateTimeField(required=False)
-	end_date = forms.DateTimeField(required=False)
-	class Meta:
-		model = StockHistory
-		fields = ['category', 'item_name', 'start_date', 'end_date']
+    export_to_csv = forms.BooleanField(required=False)
+    start_date = forms.DateTimeField(required=False)
+    end_date = forms.DateTimeField(required=False)
+    class Meta: 
+        model = StockHistory
+        fields = ['category', 'item_name', 'start_date', 'end_date']
