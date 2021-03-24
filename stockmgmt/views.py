@@ -13,7 +13,7 @@ import csv
 def home(request):
     # if request.user.is_anonymous:
     #     return redirect("/loginUser")
-    return render(request, 'home.html')
+    return redirect('/list_items')
 
 
 # def loginUser(request):
@@ -169,17 +169,17 @@ def reorder_level(request, id_no):
 
 @login_required
 def list_history(request):
-    header = 'LIST OF ITEMS'
+    header = 'LIST HISTORY'
     queryset = StockHistory.objects.all()
-    form = StockSearchForm(request.POST or None)
+    form = StockHistorySearchForm(request.POST or None)
     context = {
-    'header' : 'header',
+    'title' : header,
     "queryset": queryset,
     'form' : form 
     } 
     if request.method == 'POST':
         category = form['category'].value()
-        queryset = StockHistory.objects.filter(item_name__icontains=form['item_name'].value())
+        queryset = StockHistory.objects.filter(item_name__icontains=form['item_name'].value(), last_updated__range=[form['start_date'].value(), form['end_date'].value()])
         context = {
             "form": form,
             "header": header,
@@ -199,7 +199,7 @@ def list_history(request):
             return response
     context = {
         'queryset' : queryset,
-        'header' : 'header',
+        'title' : header,
         'form' : form 
     } 
 

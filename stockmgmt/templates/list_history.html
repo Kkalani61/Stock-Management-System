@@ -31,13 +31,15 @@
         <div class="header"> 
             {{title}}
         </div>
-        
+        <div class="row">
+        <div class="col-sm-2">
         <form method="POST" action="">
         {% csrf_token %}
         {{form|crispy}}
-        <input type="submit" value="Search"/>
+        <input type="submit" class="btn btn-primary myButton" value="Search"/>
         </form>
-
+        </div>
+        <div class="col-sm-10">
         <div class="display_table">
         <table class='table'>
         <thead>
@@ -69,6 +71,7 @@
           </tr>
       {% endfor %}
     </table>
+    </div>
     </div>
         </div>
         <script src="" async defer></script>

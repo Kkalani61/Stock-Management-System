@@ -1,12 +1,10 @@
-body {
-    background-color: #34eb6b;
-}
-
 .table{
     text-align: center;
-
 }
 
+.myButton {
+    width: 100%;
+}
 /*Make alternating colors for the table rows*/
 .table tr:nth-child(odd){
     background: #B8CAE4
@@ -14,6 +12,10 @@ body {
 
 .table tr:nth-child(even){
     background: #dae5f4
+}
+
+.form-actions input {
+    margin:0 2px;
 }
 
 .header {
@@ -32,3 +34,4 @@ body {
     margin-top: 15%;
     padding-top: 15%;
 }
+
