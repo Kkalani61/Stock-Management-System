@@ -22,7 +22,7 @@ class StockUpdateForm(forms.ModelForm):
 class IssueForm(forms.ModelForm):
     class Meta:
         model = Stock
-        fields = ['issue_quantity', 'issue_by']
+        fields = ['prod_price', 'issue_quantity', 'discount', 'sales', 'shipMode', 'shipping_cost', 'order_priority']
 
 
 class ReceiveForm(forms.ModelForm):
