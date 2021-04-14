@@ -5,7 +5,7 @@ from bootstrap_datepicker_plus import DatePickerInput
 class StockCreateForm(forms.ModelForm):
     class Meta:
         model = Stock
-        fields = ['category', 'item_name', 'quantity']
+        fields = ['category', 'item_name', 'quantity', 'prod_price']
 
 class StockSearchForm(forms.ModelForm):
     class Meta:

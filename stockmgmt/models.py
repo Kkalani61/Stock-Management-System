@@ -28,6 +28,22 @@ class Stock(models.Model):
 	last_updated = models.DateTimeField(auto_now_add=False, auto_now=True)
 	timestamp = models.DateTimeField(auto_now_add=True, auto_now=False)
 
+
+	shipMode = models.IntegerField(blank=True,null=True)
+	market = models.CharField(max_length=50,blank=True,null=True)
+	sales = models.FloatField(default='0',blank=True,null=True)
+	discount = models.FloatField(default='0',blank=True,null=True)
+	profit = models.FloatField(default='0',blank=True,null=True)
+	shipping_cost = models.FloatField(default='0',blank=True,null=True)
+	order_priority = models.IntegerField(default='0',blank=True,null=True)
+	shipday = models.IntegerField(blank=True,null=True)
+	shipmonth = models.IntegerField(blank=True,null=True)
+	shipyear = models.IntegerField(blank=True,null=True)
+	orderday = models.IntegerField(blank=True,null=True)
+	ordermonth = models.IntegerField(blank=True,null=True)
+	orderyear = models.IntegerField(blank=True,null=True)
+	prod_price = models.FloatField(default='0', blank=True, null=True)
+
 	def __str__(self):
 		return self.item_name
 
@@ -46,3 +62,18 @@ class StockHistory(models.Model):
 	reorder_level = models.IntegerField(default='0', blank=True, null=True)
 	last_updated = models.DateTimeField(auto_now_add=False, auto_now=False, null=True)
 	timestamp = models.DateTimeField(auto_now_add=False, auto_now=False, null=True)
+
+	shipMode = models.IntegerField(blank=True,null=True)
+	market = models.CharField(max_length=50,blank=True,null=True)
+	sales = models.FloatField(default='0',blank=True,null=True)
+	discount = models.FloatField(default='0',blank=True,null=True)
+	profit = models.FloatField(default='0',blank=True,null=True)
+	shipping_cost = models.FloatField(default='0',blank=True,null=True)
+	order_priority = models.IntegerField(default='0',blank=True,null=True)
+	shipday = models.IntegerField(blank=True,null=True)
+	shipmonth = models.IntegerField(blank=True,null=True)
+	shipyear = models.IntegerField(blank=True,null=True)
+	orderday = models.IntegerField(blank=True,null=True)
+	ordermonth = models.IntegerField(blank=True,null=True)
+	orderyear = models.IntegerField(blank=True,null=True)
+	prod_price = models.FloatField(default='0', blank=True, null=True)
