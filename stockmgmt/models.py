@@ -50,7 +50,11 @@ class Stock(models.Model):
 	last_updated = models.DateTimeField(auto_now_add=False, auto_now=True)
 	timestamp = models.DateTimeField(auto_now_add=True, auto_now=False)
 
+<<<<<<< HEAD
 	prod_id = models.CharField(max_length=20,blank=True,null=True)
+=======
+
+>>>>>>> 68cabe46be1757c39b6dec93ab5fb38ddea2ec90
 	shipMode = models.CharField(max_length=50, blank=True,null=True)
 	market = models.CharField(max_length=50, blank=True, null=True)
 	sales = models.FloatField(default='0', blank=True, null=True)
