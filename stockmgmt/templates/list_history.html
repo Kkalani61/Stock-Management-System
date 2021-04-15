@@ -1,0 +1,88 @@
+{% load static %}
+{% load crispy_forms_tags%}
+{% include 'nav.html' %}
+<!DOCTYPE html>
+
+<html>
+  <link href="{% static 'css/stylesheet.css' %}" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+      <!-- Font-Awesome CDN -->
+  <script src="https://kit.fontawesome.com/529cf4d149.js" crossorigin="anonymous"></script>
+    <link href="{% static 'js/jquery-ui-1.12.1/jquery-ui.min.css' %}" rel="stylesheet">
+    <link href="{% static 'js/jquery-ui-1.12.1/jquery-ui.structure.min.css' %}" rel="stylesheet">
+    <link href="{% static 'js/jquery-ui-1.12.1/jquery-ui.theme.min.css' %}" rel="stylesheet">
+    
+    
+    <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+    <script src="{% static 'js/jquery-ui-1.12.1/jquery-ui.min.js' %}"></script>
+    <script src="{% static 'js/myjs.js' %}"></script>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title{{title}}></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="">
+    </head>
+    <body>
+ 
+        <div role="main" class="container bg-light">
+        {% if messages %}
+        <div class="messages">
+        {% for message in messages %}
+          <li {% if message.tags %} class="{{message.tags}}"
+              {% endif %}> {{message}} </li>
+        {% endfor %}
+        </div>
+        {% endif %}
+       
+        <div class="header"> 
+            {{title}}
+        </div>
+        <div class="row">
+        <div class="col-sm-2">
+        <form method="POST" action="">
+        {% csrf_token %}
+        {{form|crispy}}
+        <input type="submit" class="btn btn-primary myButton" value="Search"/>
+        </form>
+        </div>
+        <div class="col-sm-10">
+        <div class="display_table">
+        <table class='table'>
+        <thead>
+          <tr>
+            <th>COUNT</th>
+            <th> ID </th>
+            <th>CATEGORY</th>
+            <th>ITEM NAME</th>
+            <th>QUANTITY IN STORE</th>
+            <th> ISSUE QUANTITY </th>
+            <th> RECEIVE QUANTITY </th>
+            <th> RECEIVE BY </th>
+            <th> ISSUE BY </th>
+            <th>LAST UPDATED</th>
+          </tr>
+        </thead>
+      {% for instance in queryset %}
+          <tr>
+            <td> {{forloop.counter}} </td>
+            <td> {{instance.id}} </td>
+            <td> {{instance.category}} </td>
+            <td> {{instance.item_name}} </td>
+            <td> {{instance.quantity}} </td>
+            <td> {{instance.issue_quantity}} </td>
+            <td> {{instance.receive_quantity}} </td>
+            <td> {{instance.receive_by}} </td>
+            <td> {{instance.issue_by}} </td>
+            <td> {{instance.last_updated}} </td>
+          </tr>
+      {% endfor %}
+    </table>
+    </div>
+    </div>
+    </div>
+  <script src="{% static 'js/pager/paging.js' %}"></script>
+  <script src="{% static 'js/myjs.js' %}"> </script>
+  </body>
+</html>

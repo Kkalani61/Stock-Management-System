@@ -1,0 +1,60 @@
+.table{
+    text-align: center;
+}
+
+.myButton {
+    width: 100%;
+}
+/*Make alternating colors for the table rows*/
+.table tr:nth-child(odd){
+    background: #B8CAE4
+}
+
+.table tr:nth-child(even){
+    background: #dae5f4
+}
+
+.form-actions input {
+    margin:0 2px;
+}
+
+.header {
+    font-size: 30px;
+    text-align: center;
+    font-weight: bold;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.messages {
+    text-align: center;
+    background-color:floralwhite;
+}
+
+.mar {
+    margin-top: 15%;
+    padding-top: 15%;
+}
+
+/*Table paination styling*/
+.paging-nav {
+    text-align: right;
+    padding-top: 2px;
+    font-size: 20px;
+    padding-bottom: 10px;
+  }
+  
+  .paging-nav a {
+    margin: auto 1px;
+    text-decoration: none;
+    display: inline-block;
+    padding: 1px 7px;
+    background: #3287a8;
+    color: white;
+    border-radius: 100px;
+  }
+  
+  .paging-nav .selected-page {
+    font-weight: bold;
+    color: #dc3545;
+  }
+  /* End Table paination styling*/

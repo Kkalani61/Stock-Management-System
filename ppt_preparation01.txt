@@ -1,0 +1,12 @@
+this web application allows users to track the inventory sales
+for prediction of sales, we have used the deep learning model
+using the sales data, we can analyize the sales abd inventory level of next week or a month
+following is the dataset link we have used to train the deep learning model
+
+
+for creation of this web app, we have used pythin and django framework and for sales prediction using deep learning we have used keras, tensorflow and for visualization of data we have used seaborn, matplotlib, 
+
+the minimum hardwawre requirement for using this web application will be 4gb ram and windoe 7 OS
+
+this block diagram helps us understand how the actual implementation was done
+first we have collected the available data from the internet, which we processed it. by using a deep learning model we trained the data in such a way that it analysis the inventory levels and predicts the sales of the next month and it also helps us to maintain the inventory levels

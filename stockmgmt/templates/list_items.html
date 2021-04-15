@@ -1,0 +1,132 @@
+{% load static %}
+{% load crispy_forms_tags %}
+{% include 'nav.html' %}
+<!DOCTYPE html>
+
+<html>
+
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title{{title}}>
+    </title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="{% static 'css/stylesheet.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- Font-Awesome CDN -->
+    <script src="https://kit.fontawesome.com/529cf4d149.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+  <div role="main" class="container bg-light">
+    {% if messages %}
+    <div class="messages">
+      {% for message in messages %}
+      <li {% if message.tags %} class="{{message.tags}}" {% endif %}> {{message}} </li>
+      {% endfor %}
+    </div>
+    {% endif %}
+
+    <div class="header">
+      {{title}}
+    </div>
+    <div class="row">
+      <div class="col-sm-2">
+        <form method="POST" action="">
+          {% csrf_token %}
+          {{form|crispy}}
+          <br>
+          <input type="submit" class="btn btn-primary mybutton" value="Search"> </input>
+        </form>
+        {% comment %} <a href="/add_items">
+          <div class="btn btn-primary myButton">Add Items</div>
+        </a><br><br>
+        <a href="/list_history">
+          <div class="btn btn-primary mybutton">List History</div>
+        </a><br> {% endcomment %}
+      </div>
+      <div class="col-sm-10">
+        <div class="display_table">
+          <table class='table'>
+            <thead>
+              <tr>
+                <th>COUNT</th>
+                <th>ITEM NAME</th>
+                <th>CATEGORY</th>
+                <th>SUBCATEGORY</th>
+                <th>ITEM ID</th>
+                <th>QUANTITY</th>
+                <th>REORDER LEVEL </th>
+                <th>PRICE</th>
+                <th>LAST UPDATED</th>
+                <th>DELETE</th>
+                <th></th>
+              </tr>
+            </thead>
+            {% for instance in queryset %}
+            <tr>
+              <td>{{forloop.counter}}</td>
+              <td><a href="{% url 'update_items' instance.id %}"> {{instance.item_name}} </a></td>
+              <td>{{instance.category}}</td>
+              <td>{{instance.subcategory}}</td>
+              <td> {{instance.prod_id}} </td>
+              <td>
+                {% if instance.quantity <= instance.reorder_level %}
+                <div style="background-color : orange; "><a href="{% url 'stock_detail' instance.id %}">
+                    {{instance.quantity}} </a> </div>
+                {% else %}
+                <a href="{% url 'stock_detail' instance.id %}"> {{instance.quantity}} </a>
+                {% endif %}
+              </td>
+              <td> <a href="{%url 'reorder_level' instance.id %}">{{instance.reorder_level}} </a> </td>
+              <td> {{instance.prod_price}} </td>
+              <td> {{instance.last_updated}} </td>
+              <td><a href="{% url 'delete_items' instance.id %}"> <i class="fas fa-trash-alt"> </i> </a> </td>
+              <td><button type="button" class="btn btn-primary" data-toggle='modal' data-target='#myModal'>
+                  Reorder
+                </button></td>
+            </tr>
+            <div class="modal fade " id="myModal" role="dialog">
+              <div class="modal-dialog modal-dialog-centered">
+                <!-- Modal content-->
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h4 class="modal-title">{{pending_event.event_title}}</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  </div>
+                  <div class="modal-body">
+
+
+                    <form method='post' action='/reorder_product/{{instance.id}}/'>
+                      {% csrf_token %}
+                      <label for="Discount">Discount</label>
+                      <input type="text" class="form-control" id="discountField" name='discount'>
+                      <label for="Shipping Cost">Shipping Cost</label>
+                      <input type="text" class="form-control" id="shippingCost" name='shippingcost'>
+                      <div class="modal-footer">
+                        <button type='submit' class='btn btn-primary'>Submit</button>
+                      </div>
+                    </form>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+
+          </table>
+        </div>
+      </div>
+    </div>
+
+
+</body>
+
+</html>
