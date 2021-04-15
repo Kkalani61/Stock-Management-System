@@ -102,17 +102,17 @@ sqluser user : karan   pass : karan {% endcomment %}
             <p>Login or register from here to access.</p>
         </div> 
     </div>
-      {% block title %}
-      {% endblock  %}
+    {% block title %}
+    {% endblock  %}
+    {% comment %}
     <div class="container col-md-2 col-sm-12">
-    <div class='login-form mar'>
-      {% block content %}
+    <div class='login-form mar'>  
         <form method="POST" action="">
         {% csrf_token %}
         {{form|crispy}}
-        </form>        
-    
-        {% comment %} <div class="main">
+        </form>         {% endcomment %}
+    {% block content %}
+        <div class="main">
         <div class="col-md-6 col-sm-12">
             <div class="login-form">
                 <form method="POST" action="/">
@@ -129,8 +129,8 @@ sqluser user : karan   pass : karan {% endcomment %}
                 </form>
             </div>
         </div>
-        </div>  {% endcomment %}
-      {% endblock %}
+        </div>
+    {% endblock %}
     </div>  
     </div>
     <script src="" async defer></script>

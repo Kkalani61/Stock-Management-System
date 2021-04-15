@@ -3,10 +3,10 @@ from django.urls import path, include
 from . import views
 
 urlpatterns = [
-    path("", views.home, name="index"),
-    # path('loginUser/', views.loginUser, name="login"),
-    # path('logoutUser/', views.logoutUser, name="logout"),
-    path('accounts/', include('registration.backends.default.urls')),
+    # path("/", views.home, name="index"),
+    path('', views.base, name="login"),
+    path('logoutUser/', views.logoutUser, name="logout"),
+    # path('accounts/', include('registration.backends.default.urls')),
     path("list_items/", views.list_items, name="list_tems"),
     path("add_items/", views.add_items, name="add_items"),
     path('update_items/<str:id_no>/', views.update_items, name="update_items"),

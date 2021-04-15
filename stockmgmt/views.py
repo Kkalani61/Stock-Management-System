@@ -1,7 +1,7 @@
 from django.shortcuts import render, HttpResponse, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
-from django.contrib.auth.decorators import login_required
+# from django.contrib.auth.decorators import login_required
 from .models import Stock, StockHistory
 from .forms import *
 from django.contrib import messages
@@ -11,30 +11,30 @@ import csv
 # Create your views here.
 
 def home(request):
-    # if request.user.is_anonymous:
-    #     return redirect("/loginUser")
+    if request.user.is_anonymous:
+        return redirect("/base")
     return redirect('/list_items')
 
 
-# def loginUser(request):
-#     if request.method == "POST":
-#         uname = request.POST.get('username')
-#         pword = request.POST.get('password')
-#         user = authenticate(username=uname, password=pword)
-#         if user is not None:
-#             login(request, user)
-#             return redirect("/")
-#         else:
-#             return render(request, 'loginUser.html')
+def base(request):
+    if request.method == "POST":
+        uname = request.POST.get('username')
+        pword = request.POST.get('password')
+        user = authenticate(username=uname, password=pword)
+        if user is not None:
+            login(request, user)
+            return redirect("/list_items")
+        else:
+            return render(request, 'base.html')
 
-#     return render(request, 'loginUser.html')
+    return render(request, 'base.html')
 
 
-# def logoutUser(request):
-#     logout(request)
-#     return redirect("/loginUser")
+def logoutUser(request):
+    logout(request)
+    return redirect("/base")
 
-@login_required
+# @login_required
 def list_items(request):
     form = StockSearchForm(request.POST or None)
     queryset = Stock.objects.all()
@@ -62,7 +62,7 @@ def list_items(request):
         }
     return render(request, "list_items.html", context)
 
-@login_required
+# @login_required
 def add_items(request):
     form = StockCreateForm(request.POST or None)
     if form.is_valid():
@@ -167,7 +167,7 @@ def reorder_level(request, id_no):
     return render(request, "add_items.html", context)
 
 
-@login_required
+# @login_required
 def list_history(request):
     header = 'LIST HISTORY'
     queryset = StockHistory.objects.all()
