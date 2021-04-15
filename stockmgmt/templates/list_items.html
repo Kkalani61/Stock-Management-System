@@ -89,11 +89,11 @@
               <td> {{instance.prod_price}} </td>
               <td> {{instance.last_updated}} </td>
               <td><a href="{% url 'delete_items' instance.id %}"> <i class="fas fa-trash-alt"> </i> </a> </td>
-              <td><button type="button" class="btn btn-primary" data-toggle='modal' data-target='#myModal'>
+              <td><button type="button" class="btn btn-primary" data-toggle='modal' data-target='#myModal_{{instance.item_name}}'>
                   Reorder
                 </button></td>
             </tr>
-            <div class="modal fade " id="myModal" role="dialog">
+            <div class="modal fade " id="myModal_{{instance.item_name}}" role="dialog">
               <div class="modal-dialog modal-dialog-centered">
                 <!-- Modal content-->
                 <div class="modal-content">
